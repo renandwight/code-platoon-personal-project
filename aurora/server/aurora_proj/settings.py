@@ -14,17 +14,18 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 
-load_dotenv("./.env")
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv("./.env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_KEY")
+MASSIVE_API_KEY = os.environ.get("MASSIVE_API_KEY")
+MARKET_AUX_API_KEY = os.environ.get("MARKET_AUX_API_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = eval(os.environ.get("DEBUG"))
@@ -63,7 +64,7 @@ REST_FRAMEWORK = {
 		'rest_framework.authentication.TokenAuthentication',]
         }
 
-# AUTH_USER_MODEL = 'user_app'
+AUTH_USER_MODEL = 'user_app.AuroraUser'
 
 # CORS_ALLOW_ALL_ORIGINS = True
 
