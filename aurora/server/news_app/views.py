@@ -1,8 +1,11 @@
+import os
+import pprint
+import json
 import requests
-from django.conf import settings
+from .serializers import NewsSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
-import pprint
+pp = pprint.PrettyPrinter(indent=2, depth=2)
 
 from rest_framework.status import (
     HTTP_200_OK, 
@@ -13,13 +16,23 @@ from rest_framework.status import (
     HTTP_404_NOT_FOUND,
 )
 
-pp = pprint.PrettyPrinter(indent=2, depth=2)
-
 class MarektNews(APIView):
     def get(self, request):
-        api_key = getattr(settings, "MARKET_AUX_API_KEY")
+        api_key = os.environ.get('MARKET_AUX_API_KEY')
         endpoint = f"https://api.marketaux.com/v1/news/all?sentiment_gte=0.1&language=en&api_token={api_key}"
         response = requests.get(endpoint)
         responseJSON = response.json()
-        pp.pprint(responseJSON)
-        # return Response(responseJSON, status=HTTP_200_OK)
+
+        articles = responseJSON.get("data", [])
+        data = [
+            {
+                "title": d.get("title"),
+                "image_url": d.get("image_url"),
+                "snippet": d.get("snippet"),
+                "url": d.get("url"),
+            }
+            for d in articles
+        ]
+
+        news = NewsSerializer(data, many=True)
+        return Response(news.data, status=HTTP_200_OK)

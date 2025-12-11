@@ -1,14 +1,46 @@
-from django.shortcuts import render
+import os
+import pprint
+import requests
+from massive import RESTClient
+from rest_framework.views import APIView
+from rest_framework.response import Response
+pp = pprint.PrettyPrinter(indent=2, depth=2)
 
-# Create your views here.
-# https://api.massive.com/v2/aggs/ticker/{
-#     TICKER}/range/1/day/{
-#         START_DATE:YYYY-MM-DD}/{
-#             END_DATE: YYYY-MM-DD
-#             }?adjusted=true&sort=asc&limit={LIMIT}&apiKey={key}
-            #   500 count 2 years limit at 10080 (60min * 24hrs * 7d) 1440min/d
-# Limit based on minutes in a day ()
-# 252 trading days per year 36w/9m = 3 (3*10080 = 30240) still 500 count
-# 10080 * 4.333333333 = 43679.999999 = 43680  (52w/12m = 4.3~) still 500 count
-# 500 is max (timespan was set to day and a multiplier of 1)
-# based on week with multi of 1 and limit 36 = 8 count
+from datetime import datetime, timedelta
+from .serializers import StockDataSerializer
+
+from rest_framework.status import (
+    HTTP_200_OK, 
+    HTTP_201_CREATED, 
+    HTTP_204_NO_CONTENT, 
+    HTTP_400_BAD_REQUEST,
+    HTTP_401_UNAUTHORIZED,
+    HTTP_404_NOT_FOUND,
+)
+
+class MarektData(APIView):
+    def get(self, request):
+        api_key = os.environ.get('MASSIVE_API_KEY')
+        stock = 'AAPL'
+        multiplier = 1
+        timespan = 'day'
+        start_date = datetime.today().date() - timedelta(days=365*2)
+        end_date = datetime.today().date()
+        endpoint = f"https://api.massive.com/v2/aggs/ticker/{stock}/range/{multiplier}/{timespan}/{start_date}/{end_date}?adjusted=true&sort=asc&apiKey={api_key}"
+        response = requests.get(endpoint)
+        responseJSON = response.json()
+
+        ticker = responseJSON.get("ticker")
+        results = responseJSON.get("results", [])
+        data = []
+        for price in results:
+            data.append({
+                "ticker": ticker,
+                "open": price.get("o"),
+                "high": price.get("h"),
+                "low": price.get("l"),
+                "close": price.get("c"),
+            })
+
+        stock_data = StockDataSerializer(data, many=True)
+        return Response(stock_data.data, status=HTTP_200_OK)
