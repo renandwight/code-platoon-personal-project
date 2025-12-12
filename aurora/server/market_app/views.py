@@ -6,11 +6,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 pp = pprint.PrettyPrinter(indent=2, depth=2)
 
-from datetime import datetime, timedelta
-from .serializers import StockDataSerializer
+from .serializers import BacktestSummarySerializer
 
-from utils.urlbuilder import massive_aggs_url
-from backtest_app.services.backtest import BacktestManager, BuyAndHold
+from .utils.urlbuilder import massive_aggs_url
+from .services.backtest import BacktestManager, BuyAndHold
 
 from rest_framework.status import (
     HTTP_200_OK, 
@@ -24,19 +23,27 @@ from rest_framework.status import (
 class MarektData(APIView):
     def get(self, request):
         api_key = os.environ.get('MASSIVE_API_KEY')
-        # endpoint = f"https://api.massive.com/v2/aggs/ticker/{stock}/range/{multiplier}/{timespan}/{start_date}/{end_date}?adjusted=true&sort=asc&apiKey={api_key}"
-        # ?adjusted=true&sort=asc&apiKey={api_key}"
+        massive_url, start_date, end_date = massive_aggs_url('AAPL')
+        response = requests.get(
+            massive_url, params={'adjusted': 'true', 'sort': 'asc', 'apiKey': api_key})
+        # return Response({response.url})
 
-        endpoint = massive_aggs_url('AAPL')
-
-        response = requests.get(endpoint, params={'adjusted': 'true', 'sort': 'asc', 'apiKey': api_key})
         responseJSON = response.json()
+
         if responseJSON.get("results") is None:
             return Response({"No data found. Ticker may be invalid"}, status=HTTP_400_BAD_REQUEST)
+        
         ticker = responseJSON.get("ticker")
         results = responseJSON.get("results", [])
-        backtest = BacktestManager(results, BuyAndHold, cash=10000)
+
+        cash = 10000
+
+        initiate_backtest = BacktestManager(results, BuyAndHold, cash)
+        backtest = initiate_backtest.run_backtest()
+        backtest_results = {"ticker": ticker, "start_date": start_date, "end_date": end_date, **backtest}
+        backtest_results["summary"] = [backtest["summary"]]
+
+        backtest_summary = BacktestSummarySerializer(backtest_results)
+        return Response(backtest_summary.data, status=HTTP_200_OK)
 
 
-        # stock_data = StockDataSerializer(data, many=True)
-        # return Response(stock_data.data, status=HTTP_200_OK)
