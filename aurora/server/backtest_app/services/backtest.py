@@ -1,11 +1,6 @@
-from backtesting import Backtest, Strategy
 import pandas as pd
-from backtesting.test import GOOG
-
-# https://kernc.github.io/backtesting.py/doc/backtesting/backtesting.html
-
-## transform massive api ohlc prices into list then convert into df to pass into backtest
-# ohlc_df = pd.DataFrame({'Open':[],'High':[], 'Low':[], 'Close':[], })
+from datetime import datetime, timezone
+from backtesting import Backtest, Strategy
 
 class BuyAndHold(Strategy):
     def init(self):
@@ -18,44 +13,48 @@ class BuyAndHold(Strategy):
             if units > 0:
                 self.buy(size=units)
 
-bt = Backtest(GOOG, BuyAndHold, cash=10000)
+class BacktestManager:
+    def __init__(self, results, strategy, cash):
+        self.strategy = strategy
+        self.cash = cash
+        self.df = self._configure_data(results)
 
-stats = bt.run()
-# print(stats.index)
-# print(stats.dtypes)
-stats_df = stats[
-    [
-        'Equity Final [$]',
-        'Return [%]',
-        'Buy & Hold Return [%]',
-        'Return (Ann.) [%]',
-        'CAGR [%]',
-        'Sharpe Ratio',
-        'Sortino Ratio',
-        'Calmar Ratio',
-        'Alpha [%]',
-        'Beta',
-        'Max. Drawdown [%]'
-        ]]
+    def _configure_data(self, results):
+        df = pd.DataFrame([
+            {
+                "Date": datetime.fromtimestamp(price["t"] / 1000, tz=timezone.utc),
+                "Open": price["o"],
+                "High": price["h"],
+                "Low":  price["l"],
+                "Close": price["c"],
+            }
+            for price in results
+        ])
+        df.set_index("Date", inplace=True)
+        df.sort_index(inplace=True)
+        return df[["Open", "High", "Low", "Close"]]
+    
+    def run_backtest(self):
+        backtest_instance = Backtest(self.df, self.strategy, self.cash)
+        backtest_data = backtest_instance.run()
 
-stats_df = stats_df.astype(float).round(2)
-print(stats_df)
+        backtest_data = backtest_data[
+            [
+                'Equity Final [$]',
+                'Return [%]',
+                'Buy & Hold Return [%]',
+                'Return (Ann.) [%]',
+                'CAGR [%]',
+                'Sharpe Ratio',
+                'Sortino Ratio',
+                'Calmar Ratio',
+                'Alpha [%]',
+                'Beta',
+                'Max. Drawdown [%]'
+                ]]
 
-# plot_data = stats['_equity_curve']
-# print(plot_data.index)
+        summary_data = backtest_data.astype(float).round(2)
+        summary_plot = summary_data['_equity_curve']
 
-
-## Backtest parameter args
-# params = 
-# data,       pandas df OHLC (df['Open'] = df['High'] = df['Low'] = df['Close'])
-# strategy,   required (buy hold strat?)
-# *,
-# cash=10000,
-# spread=0.0,
-# commission=0.0,
-# margin=1.0,
-# trade_on_close=False,
-# hedging=False,
-# exclusive_orders=False,
-# finalize_trades=False
-
+        print(summary_data)
+        print(summary_plot)
