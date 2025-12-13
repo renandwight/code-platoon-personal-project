@@ -22,10 +22,18 @@ class BacktestSummarySerializer(serializers.Serializer):
     ticker = serializers.CharField()
     start_date = serializers.DateField()
     end_date = serializers.DateField()
+    cash = serializers.DecimalField(
+        max_digits=8, decimal_places=2, min_value=1, max_value=100000)
     summary = BacktestSerializer(many=True)
     equity = EquitySerializer(many=True)
 
 class QuerySerializer(serializers.Serializer):
     ticker = serializers.CharField(min_length=1, max_length=8)
     cash = serializers.DecimalField(
-        max_digits=8, decimal_places=2, min_value=1.00, max_value=100_000.00)
+        max_digits=8, decimal_places=2, min_value=1, max_value=100000)
+    
+    def validate_ticker(self, value):
+        value = value.strip().upper()
+        if not value:
+            raise serializers.ValidationError("Please input a 'TICKER'.")
+        return value

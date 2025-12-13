@@ -39,9 +39,7 @@ class WatchlistItem(models.Model):
     
     cash = models.DecimalField(
         max_digits=8, 
-        decimal_places=2, 
-        min_value=1.00, 
-        max_value=100_000.00
+        decimal_places=2
         )
     
     start_date = models.DateField()
