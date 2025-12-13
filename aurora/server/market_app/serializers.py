@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+
 class BacktestSerializer(serializers.Serializer):
     equity_final = serializers.FloatField()
     return_pct = serializers.FloatField()
@@ -23,3 +24,8 @@ class BacktestSummarySerializer(serializers.Serializer):
     end_date = serializers.DateField()
     summary = BacktestSerializer(many=True)
     equity = EquitySerializer(many=True)
+
+class QuerySerializer(serializers.Serializer):
+    ticker = serializers.CharField(min_length=1, max_length=8)
+    cash = serializers.DecimalField(
+        max_digits=8, decimal_places=2, min_value=1.00, max_value=100_000.00)
