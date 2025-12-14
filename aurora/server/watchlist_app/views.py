@@ -21,7 +21,7 @@ from rest_framework.status import (
 class All_Watchlists(UserPermissions):
 
     def get(self, request):
-        watchlists = Watchlist.objects.filter(user=request.user).order_by("id")
+        watchlists = Watchlist.objects.filter(user=request.user)
         return Response(WatchlistSerializer(watchlists, many=True).data, status=HTTP_200_OK)
 
     def post(self, request):

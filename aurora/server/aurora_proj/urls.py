@@ -17,10 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# from rest_framework.views import Response
+from django.http import HttpResponse
+
+def test_connection(request):
+    return HttpResponse("You are now connected")
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/users/', include("user_app.urls")),
     path('api/v1/news/', include("news_app.urls")),
     path('api/v1/markets/', include("market_app.urls")),
     path('api/v1/watchlists/', include("watchlist_app.urls")),
+    path('test/', test_connection)
 ]

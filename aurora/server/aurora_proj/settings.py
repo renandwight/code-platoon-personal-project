@@ -10,9 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 from dotenv import load_dotenv
-import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,8 +30,22 @@ MARKET_AUX_API_KEY = os.environ.get('MARKET_AUX_API_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = eval(os.environ.get("DEBUG"))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+]
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
+## Allow cookies to be included in cross-origin requests
+# CORS_ALLOW_CREDENTIALS = True
+
+# SESSION_COOKIE_SECURE = True
+
+# SESSION_COOKIE_HTTPONLY = True
 
 # Application definition
 
@@ -51,6 +65,8 @@ INSTALLED_APPS = [
     'watchlist_app',
 ]
 
+AUTH_USER_MODEL = 'user_app.AuroraUser'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -66,22 +82,6 @@ REST_FRAMEWORK = {
 	'DEFAULT_AUTHENTICATION_CLASSES': [
 		'rest_framework.authentication.TokenAuthentication',]
         }
-
-AUTH_USER_MODEL = 'user_app.AuroraUser'
-
-# CORS_ALLOW_ALL_ORIGINS = True
-
-## IF FALSE
-# CORS_ALLOWED_ORIGIN = [
-#     "https://example.com",
-# ]
-
-## Allow cookies to be included in cross-origin requests
-# CORS_ALLOW_CREDENTIALS = True
-
-# SESSION_COOKIE_SECURE = True
-
-# SESSION_COOKIE_HTTPONLY = True
 
 ROOT_URLCONF = 'aurora_proj.urls'
 
@@ -102,7 +102,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'aurora_proj.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
@@ -112,7 +111,6 @@ DATABASES = {
         'NAME': 'aurora_db',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -132,7 +130,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
@@ -143,7 +140,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
