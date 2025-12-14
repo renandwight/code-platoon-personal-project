@@ -2,5 +2,5 @@ from django.urls import path
 from .views import MarektData
 
 urlpatterns = [
-    path("", MarektData.as_view()),
+    path("<str:ticker>/<str:cash>/", MarektData.as_view()),
 ]

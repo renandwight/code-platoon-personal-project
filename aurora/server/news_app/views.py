@@ -1,19 +1,11 @@
 import os
-import pprint
-import json
 import requests
 from .serializers import NewsSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
-pp = pprint.PrettyPrinter(indent=2, depth=2)
 
 from rest_framework.status import (
-    HTTP_200_OK, 
-    HTTP_201_CREATED, 
-    HTTP_204_NO_CONTENT, 
-    HTTP_400_BAD_REQUEST,
-    HTTP_401_UNAUTHORIZED,
-    HTTP_404_NOT_FOUND,
+    HTTP_200_OK,
 )
 
 class MarektNews(APIView):
