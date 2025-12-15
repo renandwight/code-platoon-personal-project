@@ -1,12 +1,27 @@
+import NewsCard from "../components/NewsCard";
+import Container from "react-bootstrap/esm/Container";
+import Row from "react-bootstrap/esm/Row";
 
-export default function HomePage() {
+function HomePage() {
 
-    
-    
+
+
     return (
         <>
-            <h1>Hello</h1>
+        <Row>
+            <div>
+                <h1>Homepage</h1>
+            </div>
+        </Row>
+        {/* <div>
+            <Row>
+                <Container>
+                    <NewsCard />
+                </Container>
+            </Row>
+        </div> */}
         </>
-    )
+    );
+};
 
-}
+export default HomePage;
