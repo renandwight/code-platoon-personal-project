@@ -1,13 +1,14 @@
-
+import AboutAurora from "../components/AboutContent";
 
 function AboutPage() {
 
 
     
     return (
-        <div>
-            <h1>About</h1>
-        </div>
+        <>
+        <h2 className="aboutaurora">About Aurora</h2>
+        <AboutAurora />
+        </>
     );
 };
 

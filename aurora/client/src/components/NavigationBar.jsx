@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
+import { Link } from 'react-router-dom';
+import Row from 'react-bootstrap/esm/Row';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/esm/Row';
+
 function NavigationBar() {
   return (
     <>
@@ -12,9 +13,9 @@ function NavigationBar() {
           <Container>
             <Nav activeKey="/">
               <Nav.Link as={ Link } to="/">Home</Nav.Link>
-              <Nav.Link as={ Link } to="about">About</Nav.Link>
               <Nav.Link as={ Link } to="backtest">Backtest</Nav.Link>
               <Nav.Link as={ Link } to="watchlists">Watchlists</Nav.Link>
+              <Nav.Link as={ Link } to="about">About</Nav.Link>
             </Nav>
           </Container>
         </Navbar>

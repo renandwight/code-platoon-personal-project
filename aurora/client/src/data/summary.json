@@ -1,0 +1,19 @@
+{
+    "meta": {
+        "ticker": "PLTR",
+        "start_date": "2023-12-15",
+        "end_date": "2025-12-14",
+        "cash": 5000,
+        "equity_final": 51064.6,
+        "return_pct": 921.29,
+        "buy_hold_return_pct": 908.63,
+        "return_ann_pct": 222.56,
+        "cagr_pct": 123.52,
+        "sharpe_ratio": 0.95,
+        "sortino_ratio": 6.01,
+        "calmar_ratio": 5.49,
+        "alpha_pct": 15.79,
+        "beta": 1.0,
+        "max_drawdown_pct": -40.57
+    },
+}

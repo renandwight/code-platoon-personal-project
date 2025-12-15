@@ -8,18 +8,13 @@ function HomePage() {
 
     return (
         <>
-        <Row>
-            <div>
-                <h1>Homepage</h1>
-            </div>
-        </Row>
-        {/* <div>
+        <div>
             <Row>
                 <Container>
                     <NewsCard />
                 </Container>
             </Row>
-        </div> */}
+        </div>
         </>
     );
 };

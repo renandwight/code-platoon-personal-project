@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import BackTestPage from "./pages/BackTestPage";
 import AllWatchlistPage from "./pages/AllWatchlistPage";
+import AWatchlistPage from "./pages/AWatchlistPage";
 import ErrorPage from "./pages/ErrorPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
             {
                 path: "watchlists",
                 element: <AllWatchlistPage />,
+            },
+                        {
+                path: "watchlist",
+                element: <AWatchlistPage />,
             },
             {
                 path: "*",

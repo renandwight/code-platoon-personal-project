@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 
+import newsData from "../data/news.json";
+
 function NewsCard() {
+
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex) => {
@@ -9,30 +12,18 @@ function NewsCard() {
   };
 
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect}>
-      <Carousel.Item>
-        {/* <ExampleCarouselImage text="First slide" /> */}
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
+    <Carousel className="carousel" activeIndex={index} onSelect={handleSelect}>
+      {newsData.map((k,v)=> (
+      <Carousel.Item key={`${k.url}-${v}`}>
+        <a href={k.url}>
+          <img src={k.image_url} alt={k.title}/>
+          <Carousel.Caption>
+            <h3>{k.title}</h3>
+            <p>{k.snippet}</p>
+          </Carousel.Caption>
+        </a>
       </Carousel.Item>
-      <Carousel.Item>
-        {/* <ExampleCarouselImage text="Second slide" /> */}
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        {/* <ExampleCarouselImage text="Third slide" /> */}
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
+      ))}
     </Carousel>
   );
 };

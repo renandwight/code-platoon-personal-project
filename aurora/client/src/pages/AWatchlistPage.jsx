@@ -1,4 +1,4 @@
-import SummaryCard from "../components/SummaryCard"
+import SummaryCard from "../components/SummaryCard";
 
 function AWatchlistPage() {
 
