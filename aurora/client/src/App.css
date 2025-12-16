@@ -13,8 +13,17 @@
   padding-bottom: 30px;
 }
 
-.carousel {
-  padding-top: 30px;
+.newscarousel {
+  padding-top: 31px;
+}
+
+.newsimg {
+  height: 565px;
+  width: 100%;
+}
+
+.newscaption {
+  width: 75%;
 }
 
 .aboutaurora {

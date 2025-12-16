@@ -1,11 +1,13 @@
 import Button from 'react-bootstrap/Button';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-import sampleMarketData from "../data/markets.json";
+function ChartCard({backtestData}) {
 
-function ChartCard() {
+  if (!backtestData) {
+    return null;
+  }
 
-  const data = [...sampleMarketData.equity]
+  const data = [...backtestData.equity]
 
   const gradientOffset = () => {
     const dataMax = Math.max(...data.map(i => i.Equity));
@@ -25,8 +27,8 @@ function ChartCard() {
 
   return (
     <>
-      <div style={{ width: '100%', height: 300 }}>
-        <ResponsiveContainer>
+      <div style={{ width: '100%', height: 360, minWidth: 0}}>
+        <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={data}
             margin={{

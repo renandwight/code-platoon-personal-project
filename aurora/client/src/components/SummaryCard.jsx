@@ -1,10 +1,12 @@
 import Table from 'react-bootstrap/Table';
 
-import sampleMarketData from "../data/markets.json";
+function SummaryCard({backtestData}) {
 
-function SummaryCard() {
+  if (!backtestData) {
+    return null;
+  }
 
-  const { meta, summary } = sampleMarketData
+  const { meta, summary } = backtestData
 
   const summaryData = Object.entries(summary).map(([key, value])=>({key,value}))
 

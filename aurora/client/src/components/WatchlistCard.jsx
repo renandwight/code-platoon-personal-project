@@ -3,13 +3,11 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/esm/Container';
 
-import sampleMarketData from "../data/markets.json"
-
 function WatchlistCard() {
 
-  const { meta, summary } = sampleMarketData
+  // const { meta, summary } = sampleMarketData
 
-  const summaryData = Object.entries(summary).map(([key, value])=>({key,value}))
+  // const summaryData = Object.entries(summary).map(([key, value])=>({key,value}))
 
   return (
     <>
