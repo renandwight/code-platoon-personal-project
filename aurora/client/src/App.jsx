@@ -1,24 +1,20 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Footer from './components/FooterContent';
-import Container from "react-bootstrap/Container";
 import NavigationBar from './components/NavigationBar';
-import { Outlet, Link, useLoaderData, useLocation, useNavigate } from "react-router-dom";
-
-// import { test_connection } from './utilities';
+import { Outlet, useLoaderData, useLocation } from "react-router-dom";
 
 function App() {
   
-  // useEffect(() => {
-  //   test_connection()
-  // }, [])
+  const loadedUser = useLoaderData();
+  const [user, setUser] = useState(loadedUser);
 
 
   return (
     <>
       <div>
-        <NavigationBar />
-        <Outlet />
+        {user && <NavigationBar user={user} setUser={setUser} />}
+        <Outlet context={{user, setUser}} />
       </div>
     </>
   )

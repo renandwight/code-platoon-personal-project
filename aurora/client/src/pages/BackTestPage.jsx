@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { fetchMarket } from '../api/calls';
 import Row from "react-bootstrap/esm/Row";
+import { fetchMarket } from '../api/calls';
 import ChartCard from "../components/ChartCard";
 import SummaryCard from "../components/SummaryCard";
 import BacktestForm from "../components/BacktestForm";

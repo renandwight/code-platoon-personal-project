@@ -14,7 +14,7 @@
 }
 
 .newscarousel {
-  padding-top: 31px;
+  padding-top: 39px;
 }
 
 .newsimg {
@@ -36,4 +36,16 @@
 
 .mywatchlists {
   padding-top: 30px;
+}
+
+.authuser {
+  padding-top: 30px;
+}
+
+.aurora-logo {
+  transition: transform 0.4s ease;
+}
+
+.aurora-logo:hover {
+  transform: rotateY(360deg);
 }

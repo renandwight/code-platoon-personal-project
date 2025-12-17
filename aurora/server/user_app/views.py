@@ -26,10 +26,10 @@ class SignUp(APIView):
                 return Response(serial_data.errors, status = HTTP_400_BAD_REQUEST)
             user = serial_data.save()
             login(request, user)
-            token_inst = Token.objects.create(user=user)
-            key = token_inst.key
+            token_inst, _ = Token.objects.get_or_create(user=user)
             return Response(
-                {"email": user.email, "token": key}, status = HTTP_201_CREATED
+                {"email": user.email, "token": token_inst.key},
+                status=HTTP_201_CREATED
             )
         except Exception as e:
             return Response(
