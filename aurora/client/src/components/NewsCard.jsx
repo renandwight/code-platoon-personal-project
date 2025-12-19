@@ -1,17 +1,15 @@
-import { fetchNews } from '../api/calls';
+import { fetchNews } from '../api/api';
 import { useEffect, useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 
 function NewsCard() {
 
-  //Carousel methods
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
 
-  //Handles News Api
   const [news, setNews] = useState([]);
 
   useEffect(() => {

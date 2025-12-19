@@ -1,14 +1,16 @@
-import { useState } from "react";
-import { Button, Form, FloatingLabel, Container } from "react-bootstrap";
 import "../styles/auth.css"
-import { signUp, logIn } from "../api/calls";
+import { useState } from "react";
+import { signUp, logIn } from "../api/auth";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import { Button, Form, FloatingLabel, Container } from "react-bootstrap";
 
 export default function RegisterLogin() {
+  
   const [mode, setMode] = useState("login");
   const isLogin = mode === "login";
-  const { setUser } = useOutletContext();
+
   const navigate = useNavigate();
+  const { setUser } = useOutletContext();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -40,12 +42,10 @@ export default function RegisterLogin() {
 
     try {
       const user = isLogin ? await logIn(userData) : await signUp(userData);
-      console.log("user", user)
-      console.log("token", localStorage.getItem("token"))
       setUser(user)
       navigate("/home", {replace: true})
-    } catch (err) {
-      console.log("error", err)
+    } catch (error) {
+      console.log("error", error)
     }
   };
 

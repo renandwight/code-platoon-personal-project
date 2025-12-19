@@ -1,10 +1,10 @@
+import { logOut } from '../api/auth';
 import Nav from 'react-bootstrap/Nav';
-import { Link, useNavigate } from 'react-router-dom';
 import Row from 'react-bootstrap/esm/Row';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
-import AuroraLogo from "../assets/AuroraLogo.svg"
-import { logOut } from '../api/calls';
+import AuroraLogo from "../assets/AuroraLogo.svg";
+import { Link, useNavigate } from 'react-router-dom';
 
 function NavigationBar({ user, setUser }) {
 

@@ -1,5 +1,12 @@
-import Button from 'react-bootstrap/Button';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { 
+  AreaChart, 
+  Area, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  ResponsiveContainer 
+} from 'recharts';
 
 function ChartCard({backtestData}) {
 
@@ -54,9 +61,6 @@ function ChartCard({backtestData}) {
           </AreaChart>
         </ResponsiveContainer>
       </div>
-      {/* <div>
-        <Button variant="outline-info">Info</Button>
-      </div> */}
     </>
   );
 };

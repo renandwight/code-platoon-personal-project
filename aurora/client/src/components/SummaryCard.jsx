@@ -7,31 +7,31 @@ function SummaryCard({backtestData}) {
   }
 
   const { meta, summary } = backtestData
-
   const summaryData = Object.entries(summary).map(([key, value])=>({key,value}))
 
   return (
-    <Table responsive>
-      <thead>
-        <tr>
-          <th>{meta?.ticker ? "Ticker":"_"}</th>
-          {summaryData.map(({key}) => (
-            <th key={key}>
-              {key.replaceAll("_", " ").toLowerCase().replace(/\b\w/g, char => char.toUpperCase())}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{meta?.ticker ?? "-"}</td>
-          {summaryData.map(({value}) => (
-            <td key={value}>{value}</td>
-          ))}
-        </tr>
-      </tbody>
-    </Table>
-
+    <div>
+      <Table responsive>
+        <thead>
+          <tr>
+            <th>{meta?.ticker ? "Ticker":"_"}</th>
+            {summaryData.map(({key}) => (
+              <th key={key}>
+                {key.replaceAll("_", " ").toLowerCase().replace(/\b\w/g, char => char.toUpperCase())}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{meta?.ticker ?? "-"}</td>
+            {summaryData.map(({key,value}) => (
+              <td key={key}>{value}</td>
+            ))}
+          </tr>
+        </tbody>
+      </Table>
+    </div>
   );
 };
 

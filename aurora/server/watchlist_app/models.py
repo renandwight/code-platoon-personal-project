@@ -54,6 +54,11 @@ class WatchlistItem(models.Model):
         decimal_places=4
     )
 
+    return_ann_pct = models.FloatField(
+        null=True,
+        blank=True
+    )
+
     buy_hold_return_pct = models.DecimalField(
         max_digits=10,
         decimal_places=4

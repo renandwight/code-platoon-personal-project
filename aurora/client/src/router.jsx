@@ -1,5 +1,5 @@
 import App from "./App";
-import { getUser } from "./api/calls";
+import { getUser } from "./api/auth";
 import HomePage from "./pages/HomePage";
 import ErrorPage from "./pages/ErrorPage";
 import AboutPage from "./pages/AboutPage";
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
                 element: <AllWatchlistPage />,
             },
             {
-                path: "watchlist",
+                path: "watchlists/:watchlistId",
                 element: <AWatchlistPage />,
             },
             {

@@ -1,26 +1,45 @@
-import Card from 'react-bootstrap/Card';
+import { useState } from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Container from 'react-bootstrap/esm/Container';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
-function WatchlistCard() {
+function WatchlistCard({onCreate}) {
 
-  // const { meta, summary } = sampleMarketData
+  const [name, setName] = useState("");
 
-  // const summaryData = Object.entries(summary).map(([key, value])=>({key,value}))
+  async function handleCreate(e) {
+    e.preventDefault();
+    if (!name.trim()) return;
+
+    try {
+      await onCreate(name.trim());
+      setName("");
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
-      <Card border="dark" style={{ width: '18rem' }}>
-        <Card.Header>Header</Card.Header>
-        <Card.Body>
-          <Card.Title>Dark Card Title</Card.Title>
-          <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </Card.Text>
-        </Card.Body>
-      </Card>
+    <Row>
+      <h1 className="mywatchlists">Watchlists</h1>
+    </Row>
+    <Row>
+      <Col>
+          <Form onSubmit={handleCreate}>
+              <Form.Control
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Watchlist name"
+                className="mb-2"
+              />
+              <Button type="submit" className="w-100">
+                Create
+              </Button>
+          </Form>
+        </Col>
+      </Row>
     </>
   );
 };

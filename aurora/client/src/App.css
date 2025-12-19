@@ -35,7 +35,11 @@
 }
 
 .mywatchlists {
-  padding-top: 30px;
+  padding-top: 45px;
+}
+
+.watchlistitems {
+  font-size: 0.85rem;
 }
 
 .authuser {

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Form, Button, InputGroup, Container, Row } from 'react-bootstrap';
 
-
-function BacktestForm({startBackTest}) {
+function BacktestForm({startBackTest, disableForm}) {
 
   const [ticker, setTicker] = useState('');
   const [cash, setCash] = useState('');
@@ -25,6 +24,7 @@ function BacktestForm({startBackTest}) {
             <InputGroup>
               <InputGroup.Text>$</InputGroup.Text>
               <Form.Control
+                disabled={disableForm}
                 placeholder="e.g. 10000"
                 type="number"
                 min="0"
@@ -39,8 +39,9 @@ function BacktestForm({startBackTest}) {
           <Form.Group controlId="formTicker" className="mt-3">
             <Form.Label>Ticker Symbol</Form.Label>
             <Form.Control
+              disabled={disableForm}
               type="text"
-              placeholder="e.g. NVDA"
+              placeholder="e.g. CPTN"
               value={ticker}
               onChange={(e) =>
                 setTicker(
@@ -52,7 +53,7 @@ function BacktestForm({startBackTest}) {
             />
           </Form.Group>
 
-          <Button type="submit" className="mt-4 w-100">
+          <Button type="submit" disabled={disableForm} className="mt-4 w-100">
             Run Backtest
           </Button>
         </Form>

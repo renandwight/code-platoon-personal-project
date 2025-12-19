@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">404 - Page Not Found</title>
+  <desc id="desc">Aurora-themed 404 graphic with centered message and scattered engineering phrases around the edges.</desc>
+
+  <style>
+    :root{
+      /* Aurora palette */
+      --ink: #393939;
+      --auroraSand: rgb(225,179,130);
+      --orangeYellow: #be4f0c;
+      --lightOrange: #ec7f37;
+      --deepOrange: #FF5A09;
+
+      --muted: rgba(57,57,57,.62);
+      --muted2: rgba(57,57,57,.35);
+      --bg: #ffffff;
+    }
+
+    .font {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .phrase {
+      fill: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: .2px;
+    }
+
+    .phraseSoft {
+      fill: var(--muted2);
+      font-size: 13px;
+      font-weight: 650;
+      letter-spacing: .3px;
+    }
+
+    .centerTitle {
+      fill: var(--ink);
+      font-weight: 820;
+      letter-spacing: 2px;
+    }
+
+    .centerSub {
+      fill: var(--muted);
+      font-weight: 650;
+      letter-spacing: .8px;
+    }
+
+    .centerMsg {
+      fill: var(--muted);
+      font-weight: 550;
+    }
+
+    /* Keep the center area clean (visual guide only; set opacity 0) */
+    .safeZone { opacity: 0; }
+
+    .stroke1 { stroke: var(--auroraSand); }
+    .stroke2 { stroke: var(--lightOrange); }
+    .stroke3 { stroke: var(--orangeYellow); }
+    .stroke4 { stroke: var(--deepOrange); }
+
+    .thin { stroke-width: 2; }
+    .med  { stroke-width: 4; }
+    .round { stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="var(--bg)"/>
+
+  <!-- Abstract "aurora ribbons" (new design vs orbit rings) -->
+  <g fill="none" class="round" opacity="0.9">
+    <!-- top-left ribbon -->
+    <path class="stroke1 med" d="M 40 120 C 140 40, 250 40, 330 105 C 390 155, 450 165, 520 150" opacity="0.55"/>
+    <path class="stroke2 thin" d="M 35 160 C 155 70, 260 80, 330 135 C 395 185, 460 205, 545 190" opacity="0.5"/>
+    <path class="stroke3 thin" d="M 60 95 C 150 35, 250 25, 335 85 C 410 140, 470 145, 540 130" opacity="0.35"/>
+
+    <!-- bottom-right ribbon -->
+    <path class="stroke1 med" d="M 920 420 C 820 500, 710 505, 630 445 C 565 395, 505 380, 430 395" opacity="0.55"/>
+    <path class="stroke2 thin" d="M 925 380 C 805 470, 695 465, 625 415 C 560 365, 495 340, 405 355" opacity="0.5"/>
+    <path class="stroke4 thin" d="M 900 445 C 825 505, 720 535, 620 470 C 545 420, 490 405, 430 415" opacity="0.3"/>
+  </g>
+
+  <!-- Corner markers (techy frame vibe) -->
+  <g fill="none" class="round" opacity="0.9">
+    <!-- TL -->
+    <path d="M 44 44 H 130" class="stroke1 med"/>
+    <path d="M 44 44 V 130" class="stroke1 med"/>
+    <circle cx="44" cy="44" r="5" fill="var(--auroraSand)"/>
+
+    <!-- TR -->
+    <path d="M 916 44 H 830" class="stroke2 med"/>
+    <path d="M 916 44 V 130" class="stroke2 med"/>
+    <circle cx="916" cy="44" r="5" fill="var(--lightOrange)"/>
+
+    <!-- BL -->
+    <path d="M 44 496 H 130" class="stroke3 med"/>
+    <path d="M 44 496 V 410" class="stroke3 med"/>
+    <circle cx="44" cy="496" r="5" fill="var(--orangeYellow)"/>
+
+    <!-- BR -->
+    <path d="M 916 496 H 830" class="stroke4 med"/>
+    <path d="M 916 496 V 410" class="stroke4 med"/>
+    <circle cx="916" cy="496" r="5" fill="var(--deepOrange)"/>
+  </g>
+
+  <!-- Center safe zone (invisible) -->
+  <rect x="240" y="170" width="480" height="210" rx="24" class="safeZone"/>
+
+  <!-- Center content -->
+  <g class="font" text-anchor="middle">
+    <text x="480" y="255" font-size="92" class="centerTitle">404</text>
+    <text x="480" y="292" font-size="16" class="centerSub">PAGE NOT FOUND</text>
+    <text x="480" y="322" font-size="15" class="centerMsg">
+      The page you’re looking for doesn’t exist (or it moved).
+    </text>
+
+    <!-- subtle underline accent (no animation) -->
+    <rect x="390" y="342" width="180" height="8" rx="4" fill="var(--auroraSand)" opacity="0.95"/>
+    <rect x="430" y="358" width="100" height="3" rx="2" fill="var(--lightOrange)" opacity="0.7"/>
+  </g>
+
+  <!-- Scattered phrases around the edges (kept out of center zone) -->
+  <g class="font">
+    <!-- Top band -->
+    <text x="160" y="70" class="phrase">Don't Repeat Yourself</text>
+    <text x="520" y="78" class="phraseSoft">Single Responsibility Principle</text>
+    <text x="810" y="92" class="phrase">Drinking From The Firehose</text>
+
+    <!-- Left side -->
+    <g transform="translate(95 260) rotate(-90)">
+      <text class="phrase">Make It Work, Make It Right, Make It Fast</text>
+    </g>
+
+    <g transform="translate(78 475) rotate(-90)">
+      <text class="phraseSoft">Keep It Simple, Keep It Boring, Keep It Working</text>
+    </g>
+
+    <!-- Right side -->
+    <g transform="translate(885 250) rotate(90)">
+      <text class="phrase">Problem, Examples, Data Structure, Algorithm, Code</text>
+    </g>
+
+    <!-- Bottom band -->
+    <text x="165" y="500" class="phraseSoft">Lost In The Sauce</text>
+    <text x="520" y="492" class="phrase">That We have Come To Know And Love</text>
+
+    <!-- A small “floating” tag near bottom-right, still outside center -->
+    <g transform="translate(725 462) rotate(-8)">
+      <text class="phraseSoft">Make It Work, Make It Right, Make It Fast</text>
+    </g>
+  </g>
+</svg>
