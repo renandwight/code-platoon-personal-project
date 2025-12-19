@@ -1,139 +1,283 @@
-# **Aurora – Stock Portfolio Backtesting & Optimization Web App**
+# 🌌 Aurora
 
-Aurora is a full-stack web application that allows users to run multi-stock backtests, compare performance against the S&P 500, and save optimized portfolios based on calculated CAGR-weighted allocations. Aurora uses **Django**, **Django REST Framework**, **React**, **PostgreSQL**, **Polygon.io**, **Backtesting.py**, and **Recharts** to deliver rich financial analytics and clean, intuitive visualizations.
+**Aurora** is a full-stack stock analysis and watchlist application designed to help long-term investors evaluate individual stocks using historical market data, backtesting, and performance metrics.  Aurora uses **Django**, **Django REST Framework**, **React**, **PostgreSQL**, **Massive API**, **MarketAux API**, **Backtesting.py**, and **Recharts** to deliver rich financial analytics and clean, intuitive visualizations.
 
-## **Features**
+The application focuses on **clarity, usability, and data-driven insights**, allowing users to move beyond intuition and make informed investment decisions.
 
-### **Backtesting**
+## 🧩 Problem Statement
 
-* Input **stock tickers**.
-* Enter **initial investment**, **start date**, and **end date**.
-* Fetches historical price data from **Polygon.io**.
-* Backend backtesting logic computes:
+Retail investors often lack accessible tools to:
 
-  * Per-stock **CAGR**
-  * **Total CAGR** (sum across all selected stocks)
-  * Portfolio **allocation weights** = stock CAGR ÷ total CAGR
-  * **Shares to purchase** for each stock
-* Generates full **performance curves** for the portfolio and the S&P 500.
+* Backtest investment ideas against historical data
+* Understand risk-adjusted performance metrics
+* Organize insights into reusable watchlists
+* Compare outcomes visually rather than via raw data
 
-### **Performance Visualization**
+Aurora addresses these gaps by combining **historical backtesting**, **data visualization**, and **portfolio organization** in a single platform.
 
-* Interactive **Recharts Line Chart** comparing:
+---
 
-  * Portfolio performance
-  * S&P 500 benchmark
-* Automatic **summary table**:
+## ✨ Current Features
 
-  * Initial investment
-  * Final balance
-  * CAGR
+### 🔐 User Authentication
 
-### **Portfolio Management**
+* Secure user registration and login
+* Token-based authentication (Django REST Framework)
+* User-specific access to watchlists and saved data
 
-* Save any backtest result as a portfolio (limit: **3 portfolios per user**).
-* Mark **one** portfolio as a favorite.
-* Favorite portfolio appears on the **Home Page**.
+---
 
-### **Portfolio Detail Page**
+### 📊 Stock Backtesting
 
-* Line chart of portfolio vs. S&P 500.
-* Holdings table showing:
+* Users can:
+
+  * Enter a **stock ticker**
+  * Specify an **initial investment amount**
+* Perform a **2-year historical backtest** on one stock at a time
+  *(limited by third-party API constraints)*
+
+---
+
+### 📈 Data Visualization
+
+* A **two-year historical price chart** is generated using **Recharts**
+* Interactive, responsive chart rendering
+* Clear visual comparison of price movement over time
+
+---
+
+### 🧮 Performance Metrics Summary
+
+Below each chart, Aurora generates a summary report including:
+
+* Final portfolio value
+* Percentage return
+* CAGR
+* Risk-adjusted metrics (where available)
+* Buy-and-hold comparison
+
+These metrics help users quickly evaluate performance without manual calculations.
+
+---
+
+### 📂 Watchlists
+
+* Users can:
+
+  * Create multiple watchlists
+  * Select which watchlist to save a backtest result to
+* Each saved entry includes:
 
   * Ticker
-  * Current price
-  * Shares held
-  * Gain/Loss %, dynamically calculated
-* Ability to favorite/unfavorite the portfolio.
+  * Backtest parameters
+  * Summary metrics
 
-## **Tech Stack**
+---
 
-### **Frontend**
+### 📰 Market News
 
-* React
-* Recharts
+* Financial and stock-related news is pulled from **MarketAux**
+* Helps users contextualize market performance with current events
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+* **React**
+* **React Bootstrap**
+* **Recharts**
 * Axios
 
-### **Backend**
+### Backend
 
-* Django
-* Django REST Framework
-* **Django REST Framework Token Authentication**
-* Backtesting.py
-* Polygon.io
-* PostgreSQL
+* **Django**
+* **Django REST Framework**
+* **Token Authentication**
+* **Backtesting.py**
 
-### **Database**
+### Database
 
-* PostgreSQL with models for:
+* **PostgreSQL**
 
-  * Portfolios
-  * Stock allocations
-  * User favorites
+### APIs
 
-## **How It Works**
+* **Massive API** (formerly Polygon) — historical stock market data
+* **MarketAux** — financial and stock market news
 
-### **1. User Input**
+---
 
-User selects up to 30 tickers and specifies investment and date range.
+## 🧠 Architecture Overview
 
-### **2. Backend Processing**
+* RESTful API architecture
+* Clear separation of concerns:
 
-Backend services perform:
+  * Models → data structure
+  * Serializers → controlled data exchange
+  * Views → business logic
+  * Frontend → presentation & interaction
+* Frontend consumes backend APIs for:
 
-1. Historical data retrieval for tickers + S&P 500.
-2. Per-stock CAGR calculation.
-3. Weight assignment (CAGR-based).
-4. Share calculation.
-5. Daily portfolio value construction.
+  * Authentication
+  * Backtesting
+  * Watchlist management
+  * News retrieval
 
-### **3. Response Returned to Frontend**
+---
 
-* Time-series data for portfolio & S&P 500
-* Summary metrics
-* Stock allocations
+## 🔄 How It Works
 
-### **4. Save Portfolio**
+Aurora follows a **client–server architecture**, where the React frontend communicates with a Django REST API to perform authentication, data retrieval, backtesting, and persistence.
 
-* User assigns an alias.
-* Portfolio stored with its allocations and metadata.
-* User can have max 3 saved portfolios.
+---
 
-## **Authentication**
+### 1️⃣ User Authentication Flow
 
-Aurora uses **Django REST Framework Token Authentication**.
+1. A user registers or logs in from the React frontend.
+2. Credentials are sent to the Django backend.
+3. Upon successful authentication, the backend returns a **token**.
+4. The frontend stores the token and attaches it to all subsequent API requests.
+5. Protected endpoints ensure users can only access their own data.
 
-### Token workflow:
+---
 
-1. User logs in via `/api/token-auth/`.
-2. Backend returns a **token**.
-3. Frontend stores token (e.g., in memory or secure storage).
-4. All authenticated requests include header:
+### 2️⃣ Stock Backtesting Flow
 
-Authorization: Token <your_token_here>
+1. The user enters:
 
-## **Pages Overview**
+   * A **stock ticker**
+   * An **initial investment amount**
+2. The frontend sends this input to the backend backtesting endpoint.
+3. The backend:
 
-### **Backtest Page**
+   * Fetches **two years of historical price data** from the **Massive API (formerly Polygon)**
+   * Applies backtesting logic using the provided investment amount
+   * Computes summary performance metrics
+4. The backend returns:
 
-* Input form
-* Run backtest
-* Line chart
-* Summary table
-* Save portfolio modal
+   * Time-series price data
+   * Calculated performance metrics
+5. The frontend renders:
 
-### **My Portfolios Page**
+   * A **two-year historical price chart** using **Recharts**
+   * A **summary metrics report** below the chart
 
-* Up to 3 portfolio cards
-* Pie-chart icon representation
-* Favorite toggle
+---
 
-### **Portfolio Page**
+### 3️⃣ Watchlist Persistence
 
-* Line chart comparison
-* Stock holdings table
-* Favorite/unfavorite option
+1. After reviewing a backtest, the user selects a watchlist to save the result.
+2. The frontend sends the selected watchlist ID and backtest data to the backend.
+3. The backend:
 
-### **Home Page**
+   * Validates ownership of the watchlist
+   * Stores the backtest summary and metadata
+4. Saved entries remain accessible across sessions.
 
-* Displays the **favorite portfolio**'s data
+---
+
+### 4️⃣ Market News Integration
+
+1. When the user navigates to the news section, the frontend requests financial news.
+2. The backend retrieves articles from **MarketAux**.
+3. News items are returned and displayed to provide **market context** alongside performance data.
+
+---
+
+### 5️⃣ Data Integrity & Safeguards
+
+* User inputs are validated on the backend to prevent invalid backtests.
+* Default fallbacks are applied when user input conflicts with available historical data.
+* API responses are normalized before being sent to the frontend.
+
+---
+
+### 6️⃣ Frontend–Backend Responsibilities
+
+**Frontend (React)**
+
+* Handles user interaction and UI state
+* Renders charts, metrics, and watchlists
+* Manages authentication tokens
+
+**Backend (Django REST API)**
+
+* Enforces authentication and permissions
+* Interfaces with third-party APIs
+* Performs backtesting calculations
+* Persists user data securely
+
+---
+
+## ⚠️ Known Limitations
+
+* Backtests are limited to a **2-year historical window** due to API constraints
+* Backtesting is currently limited to **one stock at a time**
+* Portfolio-level aggregation is not yet implemented
+* No automated allocation optimization in current version
+
+---
+
+## 🔮 Future Iterations (Planned Enhancements)
+
+The following features were part of the original vision and are planned for future releases:
+
+### 📊 Portfolio-Level Analysis
+
+* Multi-stock backtesting
+* Portfolio performance aggregation
+* Allocation-based comparisons
+
+### 🧠 Advanced Analytics
+
+* Sharpe, Sortino, Calmar, Alpha, Beta at portfolio level
+* Deeper benchmark comparisons (e.g., S&P 500)
+
+### 🤖 AI-Assisted Insights
+
+* Natural-language summaries of performance
+* Suggested allocation improvements
+* Risk interpretation for non-technical users
+
+### 📈 Enhanced Visualizations
+
+* Multi-chart comparisons
+* Exportable charts and reports
+* Improved interactivity and filtering
+
+### 🧪 Testing & Performance
+
+* Expanded unit and integration testing
+* API response caching
+* Performance optimization for large datasets
+
+---
+
+## 📦 Installation & Setup
+
+```bash
+# Clone repository
+git clone https://github.com/your-username/aurora.git
+cd aurora
+
+# Backend setup
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# Frontend setup
+cd client
+npm install
+npm run dev
+```
+
+> API keys must be configured via environment variables.
+
+---
+
+## 👤 Author
+
+**Chris**
+Full-Stack Software Engineer | Data-Driven Applications
+Built as part of ongoing professional portfolio development
