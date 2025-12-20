@@ -3,14 +3,6 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import { formatTableHeader } from "../utils/tableformat";
 
-
-// function prettyLabel(key) {
-//   return key
-//     .replaceAll("_", " ")
-//     .toLowerCase()
-//     .replace(/\b\w/g, (c) => c.toUpperCase());
-// }
-
 function WatchlistItemsTable({ items, onRemove, removingId }) {
   if (!items?.length) return (<div className="mt-3">
     No Tickers added yet. Go to {" "}

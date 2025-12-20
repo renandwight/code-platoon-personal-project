@@ -35,16 +35,23 @@ function NavigationBar({ user, setUser }) {
               className="aurora-logo"
             />
           </Navbar.Brand>
-          <Nav.Link as={Link} to="home">Home</Nav.Link>
-          <Nav.Link as={Link} to="backtest">Backtest</Nav.Link>
-          <Nav.Link as={Link} to="watchlists">Watchlists</Nav.Link>
+          <Nav.Link as={Link} to="/">Home</Nav.Link>
+          {user && <Nav.Link as={Link} to="backtest">Backtest</Nav.Link>}
+          {user && <Nav.Link as={Link} to="watchlists">Watchlists</Nav.Link>}
           <Nav.Link as={Link} to="about">About</Nav.Link>
         </Nav>
-        {user && (
           <Nav>
-            <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+            {user ? ( 
+              <Nav.Link 
+              onClick={handleLogout}>Logout
+              </Nav.Link>
+            ) : ( 
+            <Nav.Link 
+            as={Link} 
+            to="register">Login
+            </Nav.Link> 
+          )}
           </Nav>
-        )}
       </Container>
     </Navbar>
   </div>

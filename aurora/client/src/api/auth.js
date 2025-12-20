@@ -11,6 +11,7 @@ export const getUser = async () => {
   } catch (err) {
     localStorage.removeItem("token");
     delete api.defaults.headers.common["Authorization"];
+    console.log(err)
     return null;
   }
 };
@@ -24,14 +25,10 @@ export const signUp = async ({ email, password }) => {
       api.defaults.headers.common["Authorization"] = `Token ${token}`;
       return user;
     }
+    alert(response.data);
     return null;
   } catch (err) {
-    const msg =
-      err?.response?.data?.detail ||
-      err?.response?.data?.error ||
-      err?.response?.data ||
-      "Signup failed";
-    throw msg;
+    console.log(err, "Signup Failed")
   }
 };
 
@@ -44,14 +41,10 @@ export const logIn = async ({ email, password }) => {
       api.defaults.headers.common["Authorization"] = `Token ${token}`;
       return email;
     }
+    alert(response.data);
     return null;
   } catch (err) {
-    const msg =
-      err?.response?.data?.detail ||
-      err?.response?.data?.error ||
-      err?.response?.data ||
-      "Login failed";
-    throw msg;
+    console.log(err, "Login Failed")
   }
 };
 
@@ -62,5 +55,5 @@ export const logOut = async () => {
     delete api.defaults.headers.common["Authorization"];
     return null;
   }
-  throw new Error("Unable to log out, something went wrong");
+  alert("Unable to log out, something went wrong");
 };

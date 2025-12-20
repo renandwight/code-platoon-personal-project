@@ -43,7 +43,7 @@ export default function RegisterLogin() {
     try {
       const user = isLogin ? await logIn(userData) : await signUp(userData);
       setUser(user)
-      navigate("/home", {replace: true})
+      navigate("/", {replace: true})
     } catch (error) {
       console.log("error", error)
     }
