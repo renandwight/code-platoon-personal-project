@@ -12,14 +12,12 @@ function App() {
   const [backtestData, setBacktestData] = useState(null);
 
   useEffect(()=> {
-    let nonAuthPath = ["/", "/about", "/register"];
-    let isAuth = nonAuthPath.includes(location.pathname);
-    if (user && isAuth) {
-      navigate("/backtest");
-    } else if (!user && !isAuth) {
-      navigate("/");
+    let publicUrls = ["/", "/about", "/register"];
+    let isPublic = publicUrls.includes(location.pathname);
+     if (!user && !isPublic) {
+      navigate("/", {replace:true});
     }
-  }, [location.pathname, user]);
+  }, [location.pathname, user, navigate]);
   
   return (
     <>

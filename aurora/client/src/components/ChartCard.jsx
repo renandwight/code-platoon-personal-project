@@ -50,14 +50,21 @@ function ChartCard({backtestData}) {
             <YAxis width="Equity" />
             <Tooltip />
             <defs>
-              <linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="green" stopOpacity={1} />
-                <stop offset={off} stopColor="green" stopOpacity={0.1} />
-                <stop offset={off} stopColor="red" stopOpacity={0.1} />
-                <stop offset="1" stopColor="red" stopOpacity={1} />
+              <linearGradient id="equityColor" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="#ff9f68" stopOpacity={1} />
+                <stop offset={off} stopColor="#ff9f68" stopOpacity={0.1} />
+                <stop offset={off} stopColor="#be4f0c" stopOpacity={0.1} />
+                <stop offset="1" stopColor="#be4f0c" stopOpacity={1} />
+              </linearGradient>
+              <linearGradient id="benchmarkColor" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="#9ca3af" stopOpacity={1} />
+                <stop offset={off} stopColor="#9ca3af" stopOpacity={0.1} />
+                <stop offset={off} stopColor="#393939" stopOpacity={0.1} />
+                <stop offset="1" stopColor="#393939" stopOpacity={1} />
               </linearGradient>
             </defs>
-            <Area type="monotone" dataKey="Equity" stroke="#000" fill="url(#splitColor)" />
+            <Area type="monotone" dataKey="Equity" stroke="#ec7f37" fill="url(#equityColor)" />
+            <Area type="monotone" dataKey="benchmark" stroke="#393939" fill="url(#benchmarkColor)" />
           </AreaChart>
         </ResponsiveContainer>
       </div>

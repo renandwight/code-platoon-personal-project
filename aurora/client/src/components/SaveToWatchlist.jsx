@@ -39,7 +39,7 @@ function SaveToWatchlist({ backtestData }) {
   return (
     <div className="mt-2">
       <Form.Group className="mb-2">
-        <Form.Label>Save results to watchlist</Form.Label>
+        <Form.Label>Save {backtestData.meta.ticker} to watchlist?</Form.Label>
         <Form.Select
           value={selectedWatchlistId}
           onChange={(e) => setSelectedWatchlistId(e.target.value)}

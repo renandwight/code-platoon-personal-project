@@ -6,8 +6,9 @@ function SummaryCard({backtestData}) {
     return null;
   }
 
-  const { meta, summary } = backtestData
+  const { meta, summary, benchmark } = backtestData
   const summaryData = Object.entries(summary).map(([key, value])=>({key,value}))
+  const benchmarkData = Object.entries(benchmark).map(([key, value])=>({key,value}))
 
   return (
     <div>
@@ -24,6 +25,12 @@ function SummaryCard({backtestData}) {
         </thead>
         <tbody>
           <tr>
+            <td>{meta?.ticker ? "SPY" : "-"}</td>
+            {benchmarkData.map(({key,value}) => (
+              <td key={key}>{value}</td>
+            ))}
+          </tr>
+                    <tr>
             <td>{meta?.ticker ?? "-"}</td>
             {summaryData.map(({key,value}) => (
               <td key={key}>{value}</td>
